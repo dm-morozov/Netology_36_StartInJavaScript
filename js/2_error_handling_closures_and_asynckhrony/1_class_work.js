@@ -30,6 +30,9 @@ const goods = [
 ];
 
 function printFruitName(index) {
+    if (!goods[index]) {
+        throw new TypeError('Введено неверное значение');
+    }
     console.log(goods[index].name);
 }
 
@@ -38,7 +41,8 @@ for(let i=0; i < 10; i++) {
         printFruitName(i);
     } catch (error) {
         console.log(`Завершено с ошибкой: ${error}`);
-    } finally {
-        console.log(`Завершение итерации № ${i}`);
-    }
+    } 
+    // finally {
+    //     console.log(`Завершение итерации № ${i}`);
+    // }
 }

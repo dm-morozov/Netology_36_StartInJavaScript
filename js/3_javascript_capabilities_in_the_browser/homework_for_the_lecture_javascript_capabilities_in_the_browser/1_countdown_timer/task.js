@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let TotalSeconds = Number(timer.textContent)
 
     function formatTime(seconds) {
-        let hours = Math.floor(seconds / 3600);
-        let minutes = Math.floor((seconds % 3600) / 60);
-        let sec = seconds % 60;
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const sec = seconds % 60;
 
         return [
             hours.toString().padStart(2, '0'),

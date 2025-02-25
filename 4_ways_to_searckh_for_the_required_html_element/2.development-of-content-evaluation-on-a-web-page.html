@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Switcher</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            text-align: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .star-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .star {
+            fill: #333333;
+            margin: 0 10px;
+            transition: all 0.5s ease;
+        }
+
+        .star:hover {
+            fill: #ffca18;
+            scale: 1.2;
+            transition: all 0.5s ease;
+        }
+
+        .star_active {
+            fill: #ffca18;
+            scale: 1.2;
+        }
+    </style>
+</head>
+<body>
+<h1>Stars</h1>
+    <div class="star-container">
+        <div class="star">
+            <svg viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,1.375 L12.982,7.57 L19.659,7.864 L14.531,12.433 L16.402,18.625 L10,15.244 L3.598,18.625 L5.469,12.433 L0.341,7.864 L7.018,7.57 L10,1.375 Z"/>
+            </svg>
+        </div>
+        <div class="star">
+            <svg viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,1.375 L12.982,7.57 L19.659,7.864 L14.531,12.433 L16.402,18.625 L10,15.244 L3.598,18.625 L5.469,12.433 L0.341,7.864 L7.018,7.57 L10,1.375 Z"/>
+            </svg>
+        </div>
+        <div class="star">
+            <svg viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,1.375 L12.982,7.57 L19.659,7.864 L14.531,12.433 L16.402,18.625 L10,15.244 L3.598,18.625 L5.469,12.433 L0.341,7.864 L7.018,7.57 L10,1.375 Z"/>
+            </svg>
+        </div>
+        <div class="star">
+            <svg viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,1.375 L12.982,7.57 L19.659,7.864 L14.531,12.433 L16.402,18.625 L10,15.244 L3.598,18.625 L5.469,12.433 L0.341,7.864 L7.018,7.57 L10,1.375 Z"/>
+            </svg>
+        </div>
+        <div class="star">
+            <svg viewBox="0 0 20 20" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10,1.375 L12.982,7.57 L19.659,7.864 L14.531,12.433 L16.402,18.625 L10,15.244 L3.598,18.625 L5.469,12.433 L0.341,7.864 L7.018,7.57 L10,1.375 Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        // Разработка оценки контента на веб-странице
+        // Условие задачи
+        // Задание заключается в создании функционала оценки контента на веб-странице. Когда пользователь нажимает на звездочку, на нее и на все предыдущие звезды должен добавиться класс, который изменяет их цвет.
+
+        // Процесс реализации
+
+        // Собираем все звезды в псевдоколлекцию, используя для этого необходимый метод
+        // Используя цикл, на каждую звезду добавляем обработчик события для изменения ее цвета
+        // Пишем логику обработчика события
+
+        const stars = document.querySelectorAll('.star');
+        // console.log(stars.length);
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                stars.forEach(star => star.classList.remove('star_active'));
+    
+                // for (let i = 0; i <= index; i++) {
+                //     console.log(i);
+                //     stars[i].classList.add('star_active');
+                // }
+                
+                const activeStars = [...stars].slice(0, index + 1);
+                activeStars.forEach(star => star.classList.add('star_active'));
+
+            });
+
+        });
+
+    </script>
+</body>
+</html>

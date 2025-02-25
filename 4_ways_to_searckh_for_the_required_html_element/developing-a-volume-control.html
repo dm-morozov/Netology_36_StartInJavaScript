@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Volume</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            text-align: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .volume-container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 300px;
+            padding: 30px 30px;
+            border-radius: 16px;
+            box-shadow: -4px -4px 8px #d9d9d9, 4px 4px 8px #ffffff;
+        }
+
+        .volume-bar {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .volume-rect {
+            width: 20px;
+            height: 10px;
+            margin: 0 5px;
+            background: rgba(255, 255, 255, 0.54);
+            border-radius: 5px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .volume-rect:nth-child(2) {
+            height: 20px;
+        }
+
+        .volume-rect:nth-child(3) {
+            height: 30px;
+        }
+
+        .volume-rect:nth-child(4) {
+            height: 40px;
+        }
+
+        .volume-rect:nth-child(5) {
+            height: 50px;
+        }
+
+        .volume-rect:nth-child(6) {
+            height: 60px;
+        }
+
+        .volume-rect:nth-child(7) {
+            height: 70px;
+        }
+
+        .volume-rect:nth-child(8) {
+            height: 80px;
+        }
+
+        .volume-rect:nth-child(9) {
+            height: 90px;
+        }
+
+        .volume-rect:nth-child(10) {
+            height: 100px;
+        }
+
+        .volume-rect__active {
+            background: #0555ab;
+            transition: all 0.3s ease;
+        }
+
+        .divider {
+            width: 100%;
+            height: 2px;
+            background: #eee;
+            box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .volume-control {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+
+        .volume-up,
+        .volume-down {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            margin: 0 16px;
+            display: inline-block;
+            padding: 16px 16px;
+            border: none;
+            border-radius: 50%;
+            background-color: #f2f2f2;
+            box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #ffffff;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .volume-up:after,
+        .volume-down:after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            border-radius: 50%;
+            background-color: #f2f2f2;
+            box-shadow: -8px -8px 16px #d9d9d9, 8px 8px 16px #ffffff;
+            transition: all 0.2s;
+            opacity: 0;
+        }
+
+        .volume-up > span,
+        .volume-down > span {
+            position: absolute;
+            left: 23px;
+            top: 23px;
+        }
+
+        .volume-up:active,
+        .volume-down:active {
+            box-shadow: inset -6px -6px 12px #d9d9d9, inset 6px 6px 12px #ffffff;
+        }
+
+        .volume-up:active:after,
+        .volume-down:active:after {
+            transform: scale(1.02);
+            opacity: 1;
+        }
+
+        .indicator-container {
+            font: 700 24px/32px Helvetica;
+            color: #292929;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>Volume</h1>
+<div class="volume-container">
+    <div class="volume-bar">
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+        <div class="volume-rect"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="volume-control">
+        <div class="volume-down"><span>➖</span></div>
+        <div class="volume-up"><span>➕</span></div>
+    </div>
+    <div class="indicator-container">
+        <span class="indicator">0</span>
+    </div>
+</div>
+<script>
+    // Условие задачи
+    // Описание задания
+    // Задание заключается в создании функционала, который позволяет пользователю управлять громкостью (только визуальная часть) на веб-странице.
+    // Необходимо найти кнопки изменения громкости и добавить на них обработчики событий.
+    // При нажатии на кнопке будет увеличиваться или уменьшаться шкала громкости. На странице также присутствует индикатор громкости, он должен увеличиваться и уменьшаться вместе со шкалой.
+
+    // Процесс реализации
+
+    // Находим в DOM-дереве кнопки изменения громкости и индикатор громкости
+    // Собираем элементы шкалы громкости в псевдомассив, используя для этого подходящий метод
+    // Добавляем обработчики событий на кнопки управления громкостью
+    // Пишем логику для этих обработчиков событий
+
+    const volumeRects = document.querySelectorAll('.volume-rect'),
+        indicator = document.querySelector('.indicator-container > .indicator'),
+        volumeDown = document.querySelector('.volume-control > .volume-down'),
+        volumeUp = document.querySelector('.volume-control > .volume-up')
+
+    console.log(volumeRects.length)
+    console.log(indicator.textContent)
+    console.log(volumeDown.textContent)
+    console.log(volumeUp.textContent)
+
+    function resetVolumeRects() {
+        volumeRects.forEach(vr => vr.classList.remove('volume-rect__active'))
+        const activeVolumeRects = [...volumeRects].slice(0, +indicator.textContent)
+        console.log(activeVolumeRects.length)
+        activeVolumeRects.forEach(vr => vr.classList.add('volume-rect__active'))
+    }
+
+    volumeUp.addEventListener('click', () => {
+        if (+indicator.textContent < 10) {
+            indicator.textContent++
+            resetVolumeRects()
+        }
+    })
+    volumeDown.addEventListener('click', () => {
+        if (+indicator.textContent > 0) {
+            indicator.textContent--
+            resetVolumeRects()
+        }
+    })
+
+
+
+</script>
+</body>
+</html>

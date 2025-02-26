@@ -4,6 +4,8 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
+    this.timerElement = container.querySelector('.status__timer');
+
 
     this.reset();
 
@@ -16,6 +18,22 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
+  startTimer(wordLength) {
+    // Устанавливаем время количество символов * 2
+    this.timeLeft = wordLength * 2;
+    this.timerElement.textContent = this.timeLeft;
+
+    this.timerInterval = setInterval(() => {
+      if (--this.timeLeft === 0) {
+        clearInterval(this.timerInterval);
+        this.fail();
+        return;
+      }
+      this.timerElement.textContent = this.timeLeft;
+    }, 1000);
+
+  }
+
   registerEvents() {
     /*
       TODO:
@@ -25,6 +43,15 @@ class Game {
       При неправильном вводе символа - this.fail();
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
+
+    document.addEventListener('keydown', (event) => {
+      if ((event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) && event.code !== 'Space') {
+        return;
+      }
+
+
+      (event.key.toLowerCase().charCodeAt(0) === this.currentSymbol.textContent.toLowerCase().charCodeAt(0)) ? this.success() : this.fail(); 
+    });
   }
 
   success() {
@@ -56,6 +83,7 @@ class Game {
     const word = this.getWord();
 
     this.renderWord(word);
+
   }
 
   getWord() {
@@ -70,7 +98,9 @@ class Game {
         'popcorn',
         'cinema',
         'love',
-        'javascript'
+        'javascript',
+        'я люблю js и python',
+        'привет мир hello world',
       ],
       index = Math.floor(Math.random() * words.length);
 
@@ -87,6 +117,10 @@ class Game {
     this.wordElement.innerHTML = html;
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
+    this.correntWord = word;
+    
+    clearInterval(this.timerInterval);
+    this.startTimer(word.length);
   }
 }
 

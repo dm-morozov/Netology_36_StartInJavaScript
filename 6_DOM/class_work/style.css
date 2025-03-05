@@ -1,0 +1,20 @@
+.white {
+    color: white;
+    background-color: cornflowerblue;
+}
+
+.green {
+    color: green;
+    background-color: lightgreen;
+}
+
+.font {
+    font-size: 20px;
+}
+
+.border {
+    padding: 20px;
+    border: 2px solid rgb(88, 139, 235);
+    position: absolute;
+    top: 500px;
+}

@@ -1,16 +1,107 @@
-# Домашнее задание к лекции «DOM»
+# Домашнее задание к занятию «DOM»
 
-Выполните задачи:
+В рамках домашнего задания к занятию «DOM» были реализованы следующие задачи:
 
-1. [Появление элементов при прокрутке.](./reveal/)
-2. [Ротатор рекламы.](./ads/)
-3. [Онлайн-читалка.](./book-reader/)
+## 1. Появление элементов при прокрутке ([./reveal/])
+**Что сделали:**  
+Реализовали эффект появления элементов с классом `.reveal` при прокрутке страницы. Использовали событие `scroll` для проверки видимости элементов. С помощью метода `getBoundingClientRect()` определяли положение каждого блока относительно окна браузера, добавляя класс `reveal_active`, если элемент находится в видимой области, и убирая его, если выходит за пределы. Код:  
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const revealBlocks = document.querySelectorAll('.reveal');
+    
+    function checkVisibility() {
+        revealBlocks.forEach(revealBlock => {
+            const {top, bottom} = revealBlock.getBoundingClientRect();
+            if (bottom < 0 || top > window.innerHeight) return revealBlock.classList.remove('reveal_active');
+            revealBlock.classList.add('reveal_active');
+        });
+    }
 
-Чтобы получить зачёт, выполните все три задачи. Пришлите на проверку все три задачи сразу, не частями.
+    window.addEventListener('scroll', checkVisibility);
+    checkVisibility();
+});
+```
 
-Работы должны соответствовать принятому [стилю оформления кода.](https://github.com/netology-code/codestyle)
+**Трудности:**  
+Трудностей при реализации этой задачи не возникло. Логика проверки видимости была понятной, а метод `getBoundingClientRect()` оказался удобным инструментом для определения положения элементов. Задача была выполнена самостоятельно, поэтому она не обсуждалась дополнительно.
 
-Любые вопросы по задачам задавайте в чате учебной группы.
+## 2. Ротатор рекламы ([./ads/])
+**Что сделали:**  
+Реализовали ротатор рекламы, который переключает активные элементы (`.rotator__case`) внутри контейнера `.rotator` с заданной скоростью. Использовали `setTimeout` вместо `setInterval`, чтобы динамически обновлять интервал переключения на основе атрибута `data-speed`. Добавили смену цвета текста через `data-color` и обработку циклического перехода от последнего элемента к первому. Код:  
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const rotators = document.querySelectorAll('.rotator');
+    let speed = 1000;
+
+    function checkVisibility() {
+        rotators.forEach(rotator => {
+            const rotatorCase = rotator.querySelector('.rotator__case.rotator__case_active');
+            rotatorCase.classList.remove('rotator__case_active');
+            let nextElement = rotatorCase.nextElementSibling || rotator.firstElementChild;
+            nextElement.classList.add('rotator__case_active');
+            nextElement.style.color = nextElement.dataset.color;
+            speed = parseInt(nextElement.dataset.speed, 10) || 1000;
+        });
+        setTimeout(checkVisibility, speed);
+    }
+    checkVisibility();
+});
+```
+
+**Трудности:**  
+- Изначально использовался `setInterval`, но он не обновлял интервал при смене `speed`, что приводило к фиксированной задержке. Переход на `setTimeout` решил проблему, хотя потребовал переосмысления логики.
+- Возникла сложность с типом данных: `dataset.speed` возвращал строку, а `setTimeout` ожидал число. Использование `parseInt` с явным указанием основания 10 устранило эту проблему.
+- Было не сразу очевидно, как правильно обрабатывать переход от последнего элемента к первому — решили через условный оператор с `nextElementSibling || firstElementChild`.
+
+## 3. Онлайн-читалка ([./book-reader/])
+**Что сделали:**  
+Разработали интерфейс онлайн-читалки с управлением размером шрифта, цветом текста и фона. Использовали единый цикл для обработки всех блоков управления (`.book__control`), переключая классы у элемента `.book` на основе `data-*` атрибутов. Реализовали как базовую задачу (размер шрифта), так и повышенный уровень сложности (цвет текста и фона). Код:  
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+    const book = document.getElementById('book');
+    const bookControls = document.querySelectorAll('.book__control');
+
+    bookControls.forEach(control => {
+        const buttons = control.querySelectorAll('a');
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                event.preventDefault();
+                buttons.forEach(btn => btn.classList.remove('font-size_active', 'color_active'));
+                button.classList.add(control.classList.contains('book__control_font-size') ? 'font-size_active' : 'color_active');
+
+                if (control.classList.contains('book__control_font-size')) {
+                    book.classList.remove('book_fs-small', 'book_fs-big');
+                    const size = button.dataset.size;
+                    if (size === 'small') book.classList.add('book_fs-small');
+                    else if (size === 'big') book.classList.add('book_fs-big');
+                } else if (control.classList.contains('book__control_color')) {
+                    book.classList.remove('book_color-black', 'book_color-gray', 'book_color-whitesmoke');
+                    const textColor = button.dataset.textColor;
+                    if (textColor) book.classList.add(`book_color-${textColor}`);
+                } else if (control.classList.contains('book__control_background')) {
+                    book.classList.remove('book_bg-black', 'book_bg-gray', 'book_bg-white');
+                    const bgColor = button.dataset.bgColor;
+                    if (bgColor) book.classList.add(`book_bg-${bgColor}`);
+                }
+            });
+        });
+    });
+});
+```
+
+**Трудности:**  
+- Изначально обработчик клика был привязан к контейнеру `.book__control_font-size`, а не к кнопкам `.font-size`, из-за чего клики не срабатывали. Перенос слушателя на кнопки решил проблему.
+- Было сложно понять, как масштабировать код с одного блока управления до трех. Переход к перебору всех `.book__control` и проверке их типа через `classList.contains` сделал код универсальным.
+- Возник вопрос с выбором классов (`book_color-*`, `book_bg-*`) — они были взяты из явного списка в задании, но пришлось сопоставить их с `data-*` атрибутами, что потребовало внимательного чтения условий.
+- Добавление `event.preventDefault()` было необходимо, чтобы ссылки `<a>` не вызывали нежелательного поведения страницы.
+
+---
+
+Все три задачи успешно решены с учетом требований. Код соответствует [стилю оформления Netology](https://github.com/netology-code/codestyle), включая отступы, именование переменных и структурирование. Работы готовы к отправке на проверку.
+
+Если возникнут вопросы по задачам, пишите или в чат учебной группы:
+- [LinkedIn](https://www.linkedin.com/in/dm-morozov/)
+- [Telegram](https://t.me/dem2014)
 
 ## Бонус
 

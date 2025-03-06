@@ -33,18 +33,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const rotators = document.querySelectorAll('.rotator');
     let speed = 1000;
 
-    function checkVisibility() {
+    function checkVisivility() {
+
         rotators.forEach(rotator => {
-            const rotatorCase = rotator.querySelector('.rotator__case.rotator__case_active');
+            const rotatorCase = document.querySelector('.rotator__case.rotator__case_active');
             rotatorCase.classList.remove('rotator__case_active');
-            let nextElement = rotatorCase.nextElementSibling || rotator.firstElementChild;
+            
+            let nextElement;
+            if (rotatorCase.nextElementSibling) {
+                nextElement = rotatorCase.nextElementSibling;
+            } else {
+                nextElement = rotator.firstElementChild;
+            }
+
             nextElement.classList.add('rotator__case_active');
             nextElement.style.color = nextElement.dataset.color;
             speed = parseInt(nextElement.dataset.speed, 10) || 1000;
+            console.log('Элемент на странице: ', nextElement);
+            setTimeout(checkVisivility, speed);
         });
-        setTimeout(checkVisibility, speed);
     }
-    checkVisibility();
+    checkVisivility()
 });
 ```
 
@@ -62,24 +71,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookControls = document.querySelectorAll('.book__control');
 
     bookControls.forEach(control => {
+        // Нашли все кнопки
         const buttons = control.querySelectorAll('a');
+
         buttons.forEach(button => {
             button.addEventListener('click', (event) => {
-                event.preventDefault();
-                buttons.forEach(btn => btn.classList.remove('font-size_active', 'color_active'));
-                button.classList.add(control.classList.contains('book__control_font-size') ? 'font-size_active' : 'color_active');
 
+                event.preventDefault();
+                // Убираем активный класс
+                buttons.forEach(btn => btn.classList.remove('font-size_active', 'color_active'));
+
+                // Добавляем класс активной кнопке
                 if (control.classList.contains('book__control_font-size')) {
+                    button.classList.add('font-size_active');
+                } else {
+                    button.classList.add('color_active');
+                }
+
+                // Убираем классы size у книги, если есть
+                if (control.classList.contains('book__control_font-size')){
                     book.classList.remove('book_fs-small', 'book_fs-big');
+
+                    // Добавляем класс книге в зависимости от data-size нажатой кнопке
                     const size = button.dataset.size;
-                    if (size === 'small') book.classList.add('book_fs-small');
-                    else if (size === 'big') book.classList.add('book_fs-big');
+                    if (size === 'small') {
+                        book.classList.add('book_fs-small')
+                    } else if (size === 'big') {
+                        book.classList.add('book_fs-big');
+                    }
+                    
                 } else if (control.classList.contains('book__control_color')) {
                     book.classList.remove('book_color-black', 'book_color-gray', 'book_color-whitesmoke');
+
                     const textColor = button.dataset.textColor;
                     if (textColor) book.classList.add(`book_color-${textColor}`);
+
                 } else if (control.classList.contains('book__control_background')) {
                     book.classList.remove('book_bg-black', 'book_bg-gray', 'book_bg-white');
+
                     const bgColor = button.dataset.bgColor;
                     if (bgColor) book.classList.add(`book_bg-${bgColor}`);
                 }

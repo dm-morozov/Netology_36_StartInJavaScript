@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js" defer></script>
+    <title>Films</title>
+</head>
+<body>
+<h1>Films</h1>
+<form>
+    <div class="form-group">
+        <label for="name">Название фильма:</label>
+        <input type="text" class="form-control" id="name" placeholder="Введите название фильма" required>
+    </div>
+    <div class="form-group">
+        <label for="genre">Жанр:</label>
+        <select id="genre" required>
+            <!-- <option value="" disabled selected>Выберите жанр</option>
+            <option value="drama">Драма</option>
+            <option value="comedy">Комедия</option>
+            <option value="sci-fi">Фантастика</option> -->
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary btn-hover">Отправить</button>
+</form>
+<div class="content"></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="get">
+        <label for="country">Выберите страну проживания:</label>
+        <select name="country" id="country">
+            <option value="RUS">Россия</option>
+            <option value="KAZ">Казахстан</option>
+            <option value="CHN">Китай</option>
+            <option value="USA">США</option>
+        </select>
+
+        <button id="next-element">Следующий элемент</button>
+    </form>
+
+    <form action="" method="get">
+
+        <fieldset>
+            <legend>Radio кнопки</legend>
+            <!-- приватный -->
+            <input type="radio" name="type" value="Приватный" id="private">
+            <label for="private">Приватный</label>
+            
+            <!-- семейный -->
+            <input type="radio" name="type" value="Семейный" id="family">
+            <label for="family">Семейный</label>
+            
+            <input type="radio" name="type" value="Публичный" id="public">
+            <label for="public">Публичный</label>
+            <button id="radio__next-element">Следующий элемент</button>
+            <p id="output"></p>
+        </fieldset>
+
+        <input type="checkbox" name="check-private" id="check-private" checked value="isAgree">
+        <label for="check-private">Согласие на обработку персональных данных</label>
+        <button id="toggle-disabled">Заблокировать</button>
+    </form>
+
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Классная работа</title>
+</head>
+<body>
+    <div>
+        <p>
+            Параграф
+        </p>
+    </div>
+    <script>
+        const p = document.querySelector('p');
+        console.log(p.innerText, p.outerText);
+        console.log(p.innerHTML, p.outerHTML);
+        // p.innerText = 'Новый текст';
+        p.outerText = '<div>Теги как текст</div>';
+        // p.innerHTML = 'Новый текст';
+        // p.outerHTML = '<div>Новый текст</div>';
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>insertAdjacentHTML</title>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <script>
+        const list = document.querySelector('ul');
+        list.insertAdjacentHTML('afterbegin', '<li>0</li>');
+        list.insertAdjacentHTML('beforeend', '<li>4</li>');
+        
+
+        list.insertAdjacentHTML('beforebegin', '<div>Что тут</div>')
+        list.insertAdjacentHTML('afterend', '<div>Что здесь</div>')
+    </script>
+</body>
+</html>

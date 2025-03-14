@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>Один</li>
+        <li>Два</li>
+        <li>Три</li>
+    </ul>
+    <script>
+        const list = document.querySelector('ul');
+        const li = document.createElement('li');
+
+        li.textContent = 'Четырё';
+        li2 = li.cloneNode(true);
+        li2.textContent = 'Ноль';
+        list.appendChild(li);
+
+        list.insertBefore(li2, list.firstElementChild);
+
+        const text = document.createTextNode(' и Пять');
+        li.appendChild(text);
+    </script>
+</body>
+</html>

@@ -9,9 +9,9 @@
 Наш код соответствует принятому [стилю оформления](../../codestyle).  
 
 ### Если возникнут вопросы по задачам, пишите или в чат учебной группы:
-- [LinkedIn](https://www.linkedin.com/in/dm-morozov/)
-- [Telegram](https://t.me/dem2014)
-- [GitHub](https://github.com/dm-morozov/)
+- ![LinkedIn](../../assets/svg/linkedin-icon.svg) [LinkedIn](https://www.linkedin.com/in/dm-morozov/)
+- ![Telegram](../../assets/svg/telegram.svg) [Telegram](https://t.me/dem2014)
+- ![GitHub](../../assets/svg/github-icon.svg) [GitHub](https://github.com/dm-morozov/)
 
 ## Бонус
 

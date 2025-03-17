@@ -11,12 +11,23 @@ body {
   position: relative;
 }
 .cart__product-count {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border: 2px solid green;
-  border-radius: 50%;
-  padding: 2px 5px;
+position: absolute;
+    box-sizing: border-box;
+    top: 0;
+    right: 0;
+    border: 2px solid green;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 3px 5px;
+    text-align: center;
+}
+
+.cart__product-remove {
+  text-align: center;
+  color: red;
+  font-size: x-large;
+  cursor: pointer;
 }
 
 .cart__product-image {

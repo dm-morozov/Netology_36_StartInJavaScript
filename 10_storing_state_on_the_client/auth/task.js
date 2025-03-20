@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const signin = document.getElementById('signin');
     const signinForm = document.getElementById('signin__form');
-    const signinBtn = document.getElementById('signin__btn');
     const welcome = document.getElementById('welcome');
     const userIdSpan = document.getElementById('user_id');
     const logoutBtn = document.getElementById('logout__btn');
@@ -37,6 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         })
+
+        xhr.addEventListener('error', () => alert('Произошла ошибка сети!'));
+
         xhr.send(formData)
     })
 

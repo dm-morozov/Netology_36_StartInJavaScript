@@ -1,0 +1,47 @@
+.render-container {
+    width: 100%;
+}
+.render-btn {
+    display: inline-block;
+    border: 1px solid gray;
+    padding: 5px 20px;
+    cursor: pointer;
+}
+.render-btn:hover {
+    background-color: #eee;
+}
+.render-box {
+width: 100%;
+border: 1px solid #aaa;
+position: relative;
+margin-top: 20px;
+}
+.render-item {
+    position: relative;
+    width: 25%;
+    height: 100px;
+    
+}
+.item-1 {
+    left: 0;
+    background-color: #aaa;
+    transition: all 1s;
+}
+.item-2 {
+    left: 25%;
+    background-color: red;
+    transition: all 1s;
+}
+.item-3 {
+    left: 50%;
+    background-color: blue;
+    transition: all 1s;
+}
+.item-4 {
+    left: 75%;
+    background-color: green;
+    transition: all 1s;
+}
+.hidden {
+    display: none;
+}

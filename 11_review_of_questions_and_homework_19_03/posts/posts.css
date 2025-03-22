@@ -1,0 +1,55 @@
+.posts-container {
+    width: 100%;
+}
+.posts-btn {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+}
+
+.post-btn {
+    display: inline-block;
+    border: 1px solid gray;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.post-btn:hover {
+    background-color: #eee;
+}
+.post-list {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.post-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.post-text {
+    width: 100%;
+    text-align: justify;
+}
+.post-delete {
+    width: 53px;
+    height: 50px;
+    border: 1px solid red;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    border-radius: 50%;
+    line-height: 0.5;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+.post-delete:hover {
+    background-color: red;
+    color: white;
+}

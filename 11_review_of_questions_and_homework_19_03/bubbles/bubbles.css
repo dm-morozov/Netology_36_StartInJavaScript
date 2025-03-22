@@ -1,0 +1,9 @@
+.cube-box {
+    width: 100%;
+    max-width: 500px;
+}
+.cube {
+    width: 100%;
+    border: 1px solid black;
+    padding: 40px;
+}

@@ -1,0 +1,25 @@
+.form-container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.form-box {
+    width: 100%;
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.form-box h3{
+    width: 100%;
+    margin-left: 10px;
+}
+.form-box form{
+    width: 100%;
+    margin-top: 10px;
+}
+.form-box .btn-form,
+.form-box input{
+    padding: 5px 10px;
+    margin-left: 10px;
+}

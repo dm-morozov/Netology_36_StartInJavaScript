@@ -1,0 +1,22 @@
+@import url(forms/forms.css);
+@import url(bubbles/bubbles.css);
+@import url(render-cube/render.css);
+@import url(posts/posts.css);
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    padding: 20px;
+}
+#root {
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+

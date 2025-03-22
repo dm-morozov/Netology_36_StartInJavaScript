@@ -14,7 +14,19 @@
     <h1>Разбор вопросов 19 марта</h1>
 
     <div id="root"></div>
-
+    <div id="outer" style="padding: 50px; background: lightgray;">
+        <button id="inner">Кликни</button>
+    </div>
+    <script>
+        const outer = document.getElementById('outer');
+        const inner = document.getElementById('inner');
+    
+        // outer.addEventListener('click', () => console.log('Outer (bubbling)'));
+        // inner.addEventListener('click', () => console.log('Inner (bubbling)'));
+    
+        outer.addEventListener('click', () => console.log('Outer (capturing)'), { capture: true });
+        inner.addEventListener('click', () => console.log('Inner (capturing)'), { capture: true });
+    </script>
     <script src="./index.js" type="module"></script>
 </body>
 

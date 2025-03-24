@@ -21,4 +21,4 @@
   Используйте `App.imageViewer` для получения блока отображаемых изображений.
   </details>
 
-![](./img/SearchBlock.png)
+![](../img/SearchBlock.png)

@@ -17,7 +17,7 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../img/backgorund.jpg');
+  /* background-image: url('../img/backgorund.jpg'); */
   opacity: 0.5;
   z-index: 0;
 }
@@ -54,10 +54,10 @@ h2 {
 }
 
 .ui.heading.neon {
-  font-family: 'Play', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   font-size: 3rem;
-  color: #FFD5FF;
-  text-shadow: 1px 0px 4px #ffd5ff, 2px 0px 4px #ffd5ff, 0px 0px 3px #d42cca, 4px 3px 0px #d42cca, 0px 1px, 0px 0px 10px, 0px 0px 10px;
+  color: #E1A7FF;
   text-transform: uppercase;
   padding-right: 0.5rem;
   margin-bottom: 0;
@@ -84,10 +84,6 @@ h2 {
 
 .images-list .image-wrapper img {
   box-sizing: content-box;
-}
-
-.images-list .image-wrapper img.selected {
-  border: 2px dotted red;
 }
 
 .images-list .grid .row:first-of-type {
@@ -158,4 +154,27 @@ i.icon.asterisk.loading {
 
 .uploaded-previewer-modal .image-preview-container .ui.labeled.icon.button > .icon {
   background: none;
+}
+
+/* Дополняем своими стилями */
+
+.images-list .image-wrapper img {
+  width: 100px;  /* Устанавливаем фиксированную ширину изображений */
+  height: 100px;  /* Устанавливаем фиксированную высоту для квадратности */
+  border-radius: 5px;
+  object-fit: cover;  /* Обрезаем изображение, чтобы оно не искажалось */
+  margin: 5px;  /* Добавляем небольшой отступ между картинками */
+  transition: transform 0.3s ease-in-out;  /* Плавное увеличение при наведении */
+}
+
+.images-list .grid .row:first-of-type {
+  display: flex;  /* Используем flex для выравнивания картинок в ряд */
+  flex-wrap: wrap;  /* Разрешаем перенос изображений на новые строки при необходимости */
+  justify-content: space-around;  /* Начинаем выравнивание слева */
+  gap: 5px;  /* Добавляем отступы между изображениями */
+}
+
+.images-list .image-wrapper img.selected {
+  outline: 3px solid #2185d0;
+  transform: scale(1.05);  /* Легкое увеличение при выделении */
 }

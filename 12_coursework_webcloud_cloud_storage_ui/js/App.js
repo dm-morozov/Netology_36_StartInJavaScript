@@ -11,11 +11,6 @@ class App {
     this.searchBlock = new SearchBlock(document.getElementsByClassName('search-block')[0]);
     this.imageViewer = new ImageViewer(document.getElementsByClassName('images-wrapper')[0]);
     this.initModals();
-    
-    // Тестовый вызов VK.get
-    VK.get('5883760', (photos) => {
-      console.log('Фотки:', photos); // Это callback, который мы передали
-    });
   }
 
   /**

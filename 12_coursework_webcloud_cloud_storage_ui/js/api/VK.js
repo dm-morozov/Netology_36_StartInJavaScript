@@ -56,7 +56,7 @@ class VK {
       const largest = sizes.reduce((prev, curr) => // предудущее значение, текущее
         (prev.width * prev.height > curr.width * curr.height ? prev : curr)
       );
-      console.log(largest.url);
+      // console.log(largest.url);
       return largest.url;
     });
 

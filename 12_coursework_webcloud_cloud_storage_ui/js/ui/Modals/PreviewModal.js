@@ -91,15 +91,50 @@ class PreviewModal extends BaseModal {
    * Отрисовывает изображения в блоке всплывающего окна
    */
   showImages(images) {
-    // Очистить текущие изображения
-    this.content.empty(); // jQuery метод для очистки содержимого
-
-    // Добавить новые изображения
-    console.log('Добавляем изображения в модальное окно', images); 
-    const imagesMarkup = images.map(image => this.getImageInfo(image)).join('');
-
-    // Вставляем полученную разметку в модальное окно
-    this.content.html(imagesMarkup);
+    this.content.empty();
+    this.content.html('<p>Загрузка...</p>');
+    console.log('Добавляем изображения в модальное окно', images);
+  
+    if (images.length === 0) {
+      this.content.html('<p>Нет загруженных файлов</p>');
+      return;
+    }
+  
+    const imagePromises = images.map(image => {
+      return new Promise(resolve => {
+        Yandex.getDownloadLink(image.path, (url) => {
+          if (url) {
+            fetch(url, {
+              method: 'GET',
+              headers: {
+                'Authorization': `OAuth ${Yandex.getToken()}`
+              }
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`Ошибка загрузки превью: ${response.status}`);
+              }
+              return response.blob();
+            })
+            .then(blob => {
+              const blobUrl = URL.createObjectURL(blob);
+              resolve(this.getImageInfo({ ...image, preview: blobUrl }));
+            })
+            .catch(error => {
+              console.error(`Ошибка загрузки превью для ${image.path}:`, error);
+              resolve(this.getImageInfo(image));
+            });
+          } else {
+            console.log('Не удалось получить ссылку для', image.path);
+            resolve(this.getImageInfo(image));
+          }
+        });
+      });
+    });
+  
+    Promise.all(imagePromises).then(markups => {
+      this.content.html(markups.join(''));
+    });
   }
   
 
@@ -124,14 +159,14 @@ class PreviewModal extends BaseModal {
    * Возвращает разметку из изображения, таблицы с описанием данных изображения и кнопок контроллеров (удаления и скачивания)
    */
   getImageInfo(image) {
-    const { preview, name, created, size, path } = image; // Убираем file, используем path
+    const { preview, name, created, size, path } = image;
     const sizeInKb = Math.round(size / 1024);
     const formattedDate = this.formatDate(created);
     console.log('Получаем информацию о изображении:', preview);
 
     return `
       <div class="image-preview-container">
-        <img src="${preview}" />
+        <img src="${preview || 'placeholder.jpg'}" />
         <table class="ui celled table">
           <thead>
             <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>

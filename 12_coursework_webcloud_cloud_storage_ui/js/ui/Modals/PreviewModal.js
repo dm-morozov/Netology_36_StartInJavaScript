@@ -55,8 +55,12 @@ class PreviewModal extends BaseModal {
   downloadImage(file) {
     Yandex.getDownloadLink(file, (url) => {
       if (url) {
-        Yandex.downloadFileByUrl(url, () => {
-          console.log('Файл скачан');
+        Yandex.downloadFileByUrl(url, (error) => {
+          if (!error) {
+            console.log('Файл скачан');
+          } else {
+            console.log('Ошибка скачивания:', error);
+          }
         });
       } else {
         console.log('Ошибка: не получена ссылка для скачивания');
@@ -65,22 +69,23 @@ class PreviewModal extends BaseModal {
   }
 
   /**
-  * Удаляет изображение с диска
-  */
+   * Удаляет изображение с диска
+   */
   deleteImage(path, button) {
-    // // Изменяем кнопку на загрузку (с индикатором загрузки)
-    // button.addClass('disabled').find('i').addClass('icon spinner loading');
-    
-    // // Запрос на удаление изображения через Yandex API
-    // Yandex.removeFile(path, (response) => {
-    //   if (response === null) {
-    //     // Если удаление прошло успешно, удаляем блок с изображением
-    //     button.closest('.image-preview-container').remove();
-    //   } else {
-    //     // Если произошла ошибка, снимаем индикатор
-    //     button.removeClass('disabled').find('i').removeClass('icon spinner loading');
-    //   }
-    // });
+    // Изменяем кнопку на состояние загрузки
+    button.addClass('disabled').find('i').removeClass('trash').addClass('spinner loading');
+
+    // Запрос на удаление изображения через Yandex API
+    Yandex.removeFile(path, (error) => {
+      if (!error) {
+        // Если удаление прошло успешно, удаляем блок с изображением
+        button.closest('.image-preview-container').remove();
+        console.log(`Файл ${path} удалён`);
+      } else {
+        // Если произошла ошибка, возвращаем кнопку в исходное состояние
+        button.removeClass('disabled').find('i').removeClass('spinner loading').addClass('trash');
+      }
+    });
   }
 
 
@@ -121,23 +126,20 @@ class PreviewModal extends BaseModal {
    * Возвращает разметку из изображения, таблицы с описанием данных изображения и кнопок контроллеров (удаления и скачивания)
    */
   getImageInfo(image) {
-    const { public_url, preview, name, created, size, path } = image;
-    const displayUrl = public_url || preview; // Предпочитаем public_url
-    const cleanName = name.split('?')[0];
+    const { preview, name, created, size, path } = image; // Убираем file, используем path
     const sizeInKb = Math.round(size / 1024);
     const formattedDate = this.formatDate(created);
-  
-    console.log('Используемая ссылка для превью:', displayUrl);
-  
+    console.log('Получаем информацию о изображении:', preview);
+
     return `
       <div class="image-preview-container">
-        <img src="${displayUrl}" />
+        <img src="${preview}" />
         <table class="ui celled table">
           <thead>
             <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>
           </thead>
           <tbody>
-            <tr><td>${cleanName}</td><td>${formattedDate}</td><td>${sizeInKb} Кб</td></tr>
+            <tr><td>${name}</td><td>${formattedDate}</td><td>${sizeInKb} Кб</td></tr>
           </tbody>
         </table>
         <div class="buttons-wrapper">

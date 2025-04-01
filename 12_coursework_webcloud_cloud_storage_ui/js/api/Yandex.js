@@ -44,8 +44,23 @@ class Yandex {
   /**
    * Метод удаления файла из облака
    */
-  static removeFile(path, callback){
-
+  static removeFile(path, callback) {
+    fetch(`${this.HOST}/resources?path=${encodeURIComponent(path)}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `OAuth ${this.getToken()}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Ошибка удаления файла: ${response.status} ${response.statusText}`);
+      }
+      callback(null); // Успех
+    })
+    .catch(error => {
+      console.error("Ошибка при удалении файла", error);
+      callback(error);
+    });
   }
 
 

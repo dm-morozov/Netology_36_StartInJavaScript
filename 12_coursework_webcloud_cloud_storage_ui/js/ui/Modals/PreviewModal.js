@@ -121,29 +121,31 @@ class PreviewModal extends BaseModal {
    * Возвращает разметку из изображения, таблицы с описанием данных изображения и кнопок контроллеров (удаления и скачивания)
    */
   getImageInfo(image) {
-
-    console.log(image.file);
-    const { preview, name, created, size, path, file } = image;
-    console.log('Получаем информацию о изображении', preview);
+    const { public_url, preview, name, created, size, path } = image;
+    const displayUrl = public_url || preview; // Предпочитаем public_url
+    const cleanName = name.split('?')[0];
     const sizeInKb = Math.round(size / 1024);
     const formattedDate = this.formatDate(created);
+  
+    console.log('Используемая ссылка для превью:', displayUrl);
+  
     return `
       <div class="image-preview-container">
-        <img src="${preview}" />
+        <img src="${displayUrl}" />
         <table class="ui celled table">
-        <thead>
-          <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>${name}</td><td>${formattedDate}</td><td>${sizeInKb} Кб</td></tr>
-        </tbody>
+          <thead>
+            <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>${cleanName}</td><td>${formattedDate}</td><td>${sizeInKb} Кб</td></tr>
+          </tbody>
         </table>
         <div class="buttons-wrapper">
-          <button class="ui labeled icon red basic button delete" data-path='${path}'>
+          <button class="ui labeled icon red basic button delete" data-path="${path}">
             Удалить
             <i class="trash icon"></i>
           </button>
-          <button class="ui labeled icon violet basic button download" data-file='${file}'>
+          <button class="ui labeled icon violet basic button download" data-file="${path}">
             Скачать
             <i class="download icon"></i>
           </button>

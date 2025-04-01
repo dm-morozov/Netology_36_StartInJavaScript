@@ -72,17 +72,15 @@ class PreviewModal extends BaseModal {
    * Удаляет изображение с диска
    */
   deleteImage(path, button) {
-    // Изменяем кнопку на состояние загрузки
     button.addClass('disabled').find('i').removeClass('trash').addClass('spinner loading');
-
-    // Запрос на удаление изображения через Yandex API
     Yandex.removeFile(path, (error) => {
       if (!error) {
-        // Если удаление прошло успешно, удаляем блок с изображением
         button.closest('.image-preview-container').remove();
         console.log(`Файл ${path} удалён`);
+        if (this.content.find('.image-preview-container').length === 0) {
+          this.close(); // Закрываем модалку, если файлов больше нет
+        }
       } else {
-        // Если произошла ошибка, возвращаем кнопку в исходное состояние
         button.removeClass('disabled').find('i').removeClass('spinner loading').addClass('trash');
       }
     });

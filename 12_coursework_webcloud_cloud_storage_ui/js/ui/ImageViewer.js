@@ -80,19 +80,31 @@ class ImageViewer {
     uploadToDiskButton.addEventListener('click', (event) => {
       event.preventDefault();
 
+      // 1. Получаем все выделенные изображения
       const selectedImages = this.imagesContainer.querySelectorAll('img.selected');
-      const imageUrls = Array.from(selectedImages).map(img => img.src);
 
+      // 2. Проверяем, есть ли выделенные изображения
       if (selectedImages.length === 0) {
         alert('Выберите хотя бы одно изображение');
         return;
       }
 
+      // 3. Формируем массив объектов с путями и именами
+      const imageData = Array.from(selectedImages).map(img => ({
+        src: img.src,
+        name: img.src.split('/').pop().split('?')[0] // Извлекаем имя файла из URL
+      }));
+
+      // 4. Получаем модальное окно загрузки
       const uploadModal = App.getModal('fileUploader');
+
+      // 5. Открываем модальное окно
       uploadModal.open();
-      uploadModal.showImages(imageUrls);
-      
-    })
+
+      // 6. Отображаем изображения в модальном окне
+      uploadModal.showImages(imageData);
+    });
+
     this.checkButtonText();
   }
 

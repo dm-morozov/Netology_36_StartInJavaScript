@@ -129,7 +129,7 @@ class PreviewModal extends BaseModal {
     const formattedDate = this.formatDate(created);
     return `
       <div class="image-preview-container">
-        <img src="https://downloader.disk.yandex.ru/disk/ebf8a5c20a65c0b8243dac9968c45515212a9a0043a8a227280a044b83eef79b/67e82936/iOqwoiT5Jo5s4cDwK8kYVjmE-MZg6YYVP0pd3ToKv7Dg0pvoKsLLu8tIRKaNa0tWIDsxLxL2NbGwnPagBERj9g%3D%3D?uid=1918231531&filename=_MG_7571.jpg&disposition=attachment&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=1918231531&fsize=2669482&hid=7c290c4d6e20f057b87eed425503f154&media_type=image&tknv=v2&etag=6c34ee1ee9b67a7e1797ca407987429e" />
+        <img src="${preview}" />
         <table class="ui celled table">
         <thead>
           <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>
